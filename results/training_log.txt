@@ -1,0 +1,181 @@
+
+================================================================================
+DATA LOADED
+================================================================================
+X_train: (206138, 74), X_test: (51535, 74)
+Train class distribution:
+attack_cat
+0    0.360923
+1    0.054279
+2    0.009038
+3    0.063462
+4    0.172797
+5    0.010391
+6    0.094097
+7    0.000674
+8    0.005865
+9    0.228473
+Name: proportion, dtype: float64
+
+*** SPEED TEST CONFIGURATION: N_CV_FOLDS=5, N_RANDOM_SEARCH_ITER=25 ***
+
+================================================================================
+Q1/Q2: RANDOM FOREST VALIDATION CURVES (n_estimators, max_depth)
+================================================================================
+n_estimators validation curve computed in 341.9s
+
+Random Forest: n_estimators vs macro-F1:
+ n_estimators  train_macro_f1_mean  train_macro_f1_std  val_macro_f1_mean  val_macro_f1_std
+           10             0.749242            0.001642           0.548129          0.010800
+           25             0.757132            0.000892           0.557408          0.010537
+           50             0.759333            0.001039           0.556800          0.009125
+          100             0.759809            0.000684           0.561454          0.007662
+          200             0.760150            0.000757           0.564780          0.008627
+          300             0.760397            0.000512           0.566142          0.008285
+max_depth validation curve computed in 234.5s
+
+Random Forest: max_depth vs macro-F1:
+max_depth  train_macro_f1_mean  train_macro_f1_std  val_macro_f1_mean  val_macro_f1_std
+        2             0.253797            0.013955           0.253691          0.012448
+        4             0.361418            0.016885           0.360841          0.015587
+        6             0.444713            0.001602           0.442466          0.003058
+        8             0.476456            0.007389           0.470921          0.007762
+       12             0.533425            0.002154           0.509462          0.005180
+       16             0.619947            0.014856           0.550735          0.013346
+       20             0.702667            0.000842           0.571823          0.002130
+     None             0.759809            0.000684           0.561454          0.007662
+
+================================================================================
+Q3: HIST GRADIENT BOOSTING VALIDATION CURVES (learning_rate, max_iter)
+================================================================================
+learning_rate validation curve computed in 514.7s
+
+HistGradientBoosting: learning_rate vs macro-F1:
+ learning_rate  train_macro_f1_mean  train_macro_f1_std  val_macro_f1_mean  val_macro_f1_std
+          0.01             0.581720            0.002798           0.540693          0.007547
+          0.05             0.588071            0.013430           0.524061          0.006989
+          0.10             0.517975            0.048771           0.477801          0.034955
+          0.20             0.432790            0.066455           0.420431          0.059321
+          0.30             0.429964            0.013422           0.418234          0.009571
+max_iter validation curve computed in 407.9s
+
+HistGradientBoosting: max_iter vs macro-F1:
+ max_iter  train_macro_f1_mean  train_macro_f1_std  val_macro_f1_mean  val_macro_f1_std
+       25             0.544795            0.005368           0.511080          0.003298
+       50             0.523993            0.029649           0.488588          0.020763
+      100             0.517975            0.048771           0.477801          0.034955
+      200             0.463569            0.047381           0.438915          0.037932
+
+================================================================================
+Q4: DOES class_weight='balanced' IMPROVE MINORITY-CLASS DETECTION? (Random Forest, CV)
+================================================================================
+          None  balanced
+0     0.578133  0.560429
+1     0.565568  0.553198
+2     0.558978  0.559143
+3     0.567360  0.575962
+4     0.567049  0.558538
+mean  0.567418  0.561454
+std   0.006158  0.007662
+
+Interpretation: compare the 'balanced' vs 'None' mean macro-F1 above. A higher mean for 'balanced' indicates class weighting meaningfully improves minority-class detection on this severely imbalanced (534:1) dataset.
+
+================================================================================
+FINAL RANDOM FOREST TUNING (RandomizedSearchCV)
+================================================================================
+RandomForest RandomizedSearchCV completed in 6073.0s (25 candidates x 5 folds)
+Best params: {'n_estimators': 400, 'min_samples_split': 2, 'min_samples_leaf': 2, 'max_features': None, 'max_depth': 16, 'class_weight': 'balanced_subsample'}
+Best CV macro-F1: 0.5859
+
+================================================================================
+FINAL HIST GRADIENT BOOSTING TUNING (RandomizedSearchCV)
+================================================================================
+Using inverse-frequency sample weights for HistGBM: {0: 0.2770672043010753, 9: 0.4376881754676519, 4: 0.5787142055025267, 6: 1.0627313502087952, 3: 1.5757376547928452, 1: 1.8423272857270534, 5: 9.623622782446311, 2: 11.06484165324745, 8: 17.050289495450787, 7: 148.30071942446042}
+HistGradientBoosting RandomizedSearchCV completed in 2086.2s (25 candidates x 5 folds)
+Best params: {'min_samples_leaf': 20, 'max_leaf_nodes': 15, 'max_iter': 150, 'max_depth': 6, 'learning_rate': 0.05, 'l2_regularization': 0.0}
+Best CV macro-F1: 0.7024
+
+================================================================================
+TEST SET EVALUATION: rf
+================================================================================
+                precision    recall  f1-score       support
+Normal           0.986001  0.757366  0.856691  18600.000000
+Reconnaissance   0.853613  0.814868  0.833790   2798.000000
+Backdoor         0.062723  0.188841  0.094168    466.000000
+DoS              0.356832  0.677774  0.467524   3271.000000
+Exploits         0.868720  0.541718  0.667312   8905.000000
+Analysis         0.099434  0.229907  0.138826    535.000000
+Fuzzers          0.503099  0.820375  0.623706   4849.000000
+Worms            0.632653  0.885714  0.738095     35.000000
+Shellcode        0.414051  0.917219  0.570546    302.000000
+Generic          0.998095  0.978767  0.988336  11774.000000
+accuracy         0.765092  0.765092  0.765092      0.765092
+macro avg        0.577522  0.681255  0.597900  51535.000000
+weighted avg     0.854795  0.765092  0.790073  51535.000000
+
+Prediction time on test set (51535 rows): 2.364s
+
+================================================================================
+TEST SET EVALUATION: gbm
+================================================================================
+                precision    recall  f1-score       support
+Normal           0.986892  0.744785  0.848914  18600.000000
+Reconnaissance   0.829525  0.817370  0.823402   2798.000000
+Backdoor         0.088152  0.399142  0.144410    466.000000
+DoS              0.362127  0.660043  0.467670   3271.000000
+Exploits         0.881831  0.491072  0.630842   8905.000000
+Analysis         0.134276  0.284112  0.182364    535.000000
+Fuzzers          0.495966  0.811301  0.615601   4849.000000
+Worms            0.336634  0.971429  0.500000     35.000000
+Shellcode        0.294715  0.960265  0.451011    302.000000
+Generic          0.996367  0.978342  0.987272  11774.000000
+accuracy         0.752634  0.752634  0.752634      0.752634
+macro avg        0.540648  0.711786  0.565149  51535.000000
+weighted avg     0.855036  0.752634  0.779448  51535.000000
+
+Prediction time on test set (51535 rows): 1.486s
+
+================================================================================
+FEATURE IMPORTANCE
+================================================================================
+
+Top 10 features (rf):
+sbytes             0.221883
+service_dns        0.136487
+sttl               0.128964
+smean              0.101295
+ct_dst_src_ltm     0.068527
+dmean              0.052914
+service_http       0.046565
+dbytes             0.029215
+proto_udp          0.025238
+service_unknown    0.020907
+
+gbm: no native feature_importances_ (expected for HistGradientBoostingClassifier) - computing permutation importance on a subsample instead.
+
+Top 10 features (gbm):
+sttl                0.175780
+sbytes              0.161100
+smean               0.124955
+service_dns         0.082858
+sjit                0.035581
+proto_udp           0.026551
+service_unknown     0.025230
+ct_src_dport_ltm    0.022794
+ct_srv_dst          0.019156
+sloss               0.015254
+
+================================================================================
+FINAL MODEL COMPARISON (RF vs HistGBM) - add your Assignment 2 model rows manually for the report
+================================================================================
+model  test_macro_f1  test_weighted_f1  test_accuracy  predict_time_s  tuning_time_s
+   rf       0.597900          0.790073       0.765092        2.363532    6072.995204
+  gbm       0.565149          0.779448       0.752634        1.485663    2086.159024
+
+================================================================================
+TRAINING COMPLETE
+================================================================================
+Total wall-clock time: 9904.3s (165.1 min)
+Models saved to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\models
+Figures saved to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\figures
+Tables saved to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\tables

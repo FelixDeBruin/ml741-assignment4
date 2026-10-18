@@ -1,0 +1,332 @@
+
+================================================================================
+1. BASIC OVERVIEW
+================================================================================
+Shape: (257673, 44)
+
+Dtypes:
+id                     int64
+dur                  float64
+proto                    str
+service                  str
+state                    str
+spkts                  int64
+dpkts                  int64
+sbytes                 int64
+dbytes                 int64
+rate                 float64
+sttl                   int64
+dttl                   int64
+sload                float64
+dload                float64
+sloss                  int64
+dloss                  int64
+sinpkt               float64
+dinpkt               float64
+sjit                 float64
+djit                 float64
+swin                   int64
+stcpb                  int64
+dtcpb                  int64
+dwin                   int64
+tcprtt               float64
+synack               float64
+ackdat               float64
+smean                  int64
+dmean                  int64
+trans_depth            int64
+response_body_len      int64
+ct_srv_src             int64
+ct_state_ttl           int64
+ct_dst_ltm             int64
+ct_src_dport_ltm       int64
+ct_dst_sport_ltm       int64
+ct_dst_src_ltm         int64
+is_ftp_login           int64
+ct_ftp_cmd             int64
+ct_flw_http_mthd       int64
+ct_src_ltm             int64
+ct_srv_dst             int64
+is_sm_ips_ports        int64
+attack_cat             int64
+dtype: object
+
+Undocumented columns (not in features.csv): ['id', 'rate']
+  'id' is a row index -> drop before modeling.
+  'rate' appears derived from packet/byte counts over duration -> inspect correlation with sbytes/dbytes/spkts/dpkts/dur before deciding whether to keep (possible redundancy).
+
+================================================================================
+2. MISSINGNESS / PLACEHOLDER ANALYSIS
+================================================================================
+NaN counts (non-zero only):
+  None
+
+'?' placeholder counts (non-zero only):
+  service: 141321 (54.85%)
+  NOTE: service has >30% placeholder values - this is too large to drop rows; treat '?' as an explicit 'unknown' category rather than imputing.
+
+'service' missingness rate (%) by attack_cat class (checks whether missingness itself is predictive):
+            service_known_pct  service_unknown_pct
+attack_cat                                        
+0                   31.304301            68.695699
+1                   15.778938            84.221062
+2                    4.723057            95.276943
+3                   15.336635            84.663365
+4                   48.242560            51.757440
+5                   21.068360            78.931640
+6                    9.345871            90.654129
+7                   85.057471            14.942529
+8                    0.000000           100.000000
+9                   98.445754             1.554246
+
+================================================================================
+3. DUPLICATES AND CONSTANT COLUMNS
+================================================================================
+Duplicate rows (excluding id, first occurrence kept): 94928 (36.84%)
+NOTE: >30% duplication is substantial. This may reflect repeated/replayed traffic patterns (plausible for network data, especially for automated attacks) rather than a data error, but must be investigated and justified before deciding whether to deduplicate prior to modeling (deduplicating could remove legitimate repeated attack signatures and bias class balance).
+
+Duplicate involvement rate (%) by attack_cat class:
+            total_rows  rows_involved_in_duplicates  duplicate_rate_pct
+attack_cat                                                             
+0                93000                        10832               11.65
+1                13987                         4930               35.25
+2                 2329                          814               34.95
+3                16353                        12673               77.50
+4                44525                        21365               47.98
+5                 2677                         1111               41.50
+6                24246                         5199               21.44
+7                  174                            6                3.45
+8                 1511                           99                6.55
+9                58871                        56799               96.48
+
+Constant / single-value columns: None
+Near-constant columns (>99% single value): None
+
+================================================================================
+4. TARGET VARIABLE (attack_cat) ANALYSIS
+================================================================================
+dtype: int64
+unique values: [np.int64(0), np.int64(1), np.int64(2), np.int64(3), np.int64(4), np.int64(5), np.int64(6), np.int64(7), np.int64(8), np.int64(9)] (10 classes)
+NOTE: attack_cat is pre-encoded as integers 0-9 with NO mapping file provided linking codes to attack category names (e.g. Normal, Fuzzers, DoS, Generic, Reconnaissance, etc.). This script therefore treats attack_cat strictly as a nominal categorical label (not ordinal) in all plots/analysis below. State this limitation explicitly in your report, and consider cross-referencing the public UNSW-NB15 documentation if you wish to recover semantic class names.
+
+Class distribution:
+            count    pct
+attack_cat              
+0           93000  36.09
+1           13987   5.43
+2            2329   0.90
+3           16353   6.35
+4           44525  17.28
+5            2677   1.04
+6           24246   9.41
+7             174   0.07
+8            1511   0.59
+9           58871  22.85
+
+Imbalance ratio (majority/minority): 534.5:1
+NOTE: severe imbalance (500+:1). Favor macro-averaged F1 (or per-class F1) over plain accuracy, use stratified train/test splits and stratified CV folds, and consider class_weight or resampling strategies during tuning.
+
+================================================================================
+5. CATEGORICAL FEATURE ANALYSIS (proto, service, state)
+================================================================================
+
+--- proto (133 unique values) ---
+proto
+tcp        123041
+udp         92701
+unas        15599
+arp          3846
+ospf         3271
+sctp         1474
+any           396
+gre           313
+rsvp          264
+ipv6          262
+sun-nd        255
+mobile        253
+swipe         253
+pim           253
+sep           251
+prm           133
+xns-idp       133
+leaf-1        133
+ggp           132
+ip            132
+Name: count, dtype: int64
+  NOTE: proto has high cardinality (133 unique values). Plot below shows only top 15 categories grouped with an 'other' bucket for the remainder. For modeling, consider grouping rare categories (e.g. <0.1% frequency) into 'other' before one-hot encoding to avoid extremely sparse, high-dimensional features.
+
+--- service (13 unique values) ---
+service
+?           141321
+dns          68661
+http         27011
+smtp          6909
+ftp-data      5391
+ftp           4980
+pop3          1528
+ssh           1506
+dhcp           120
+snmp           109
+ssl             86
+irc             30
+radius          21
+Name: count, dtype: int64
+
+--- state (11 unique values) ---
+state
+FIN    117164
+INT    116438
+CON     20134
+REQ      3833
+RST        84
+ECO        12
+ACC         4
+CLO         1
+PAR         1
+URN         1
+no          1
+Name: count, dtype: int64
+
+NOTE: 'state' contains value(s) not in the documented state list from features.csv: {'no'}. Verify these are not data entry artifacts before encoding.
+
+================================================================================
+6. NUMERIC FEATURE DISTRIBUTIONS
+================================================================================
+                      count          mean           std   min           25%            50%           75%           max        skew      kurtosis
+dur                257673.0  1.246715e+00  5.974305e+00   0.0      0.000008       0.004285  6.857770e-01  5.999999e+01    8.022494     68.041502
+spkts              257673.0  1.977714e+01  1.359472e+02   1.0      2.000000       4.000000  1.200000e+01  1.064600e+04   42.521898   2213.268907
+dpkts              257673.0  1.851470e+01  1.119860e+02   0.0      0.000000       2.000000  1.000000e+01  1.101800e+04   41.192776   2965.881825
+sbytes             257673.0  8.572952e+03  1.737739e+05  24.0    114.000000     528.000000  1.362000e+03  1.435577e+07   47.917174   2616.499362
+dbytes             257673.0  1.438729e+04  1.461993e+05   0.0      0.000000     178.000000  1.064000e+03  1.465753e+07   44.340233   3272.346986
+rate               257673.0  9.125391e+04  1.603446e+05   0.0     30.789277    2955.664893  1.250000e+05  1.000000e+06    3.380488     14.980210
+sttl               257673.0  1.800009e+02  1.024883e+02   0.0     62.000000     254.000000  2.540000e+02  2.550000e+02   -0.682167     -1.494920
+dttl               257673.0  8.475496e+01  1.127621e+02   0.0      0.000000      29.000000  2.520000e+02  2.540000e+02    0.787249     -1.336615
+sload              257673.0  7.060869e+07  1.857313e+08   0.0  12318.004880  743942.312500  8.000000e+07  5.988000e+09    8.933306    136.971491
+dload              257673.0  6.582143e+05  2.412372e+06   0.0      0.000000    1747.441284  2.210538e+04  2.242273e+07    4.710773     22.786119
+sloss              257673.0  4.889317e+00  6.557495e+01   0.0      0.000000       0.000000  3.000000e+00  5.319000e+03   47.120682   2551.469049
+dloss              257673.0  6.743691e+00  5.370222e+01   0.0      0.000000       0.000000  2.000000e+00  5.507000e+03   46.086326   3502.779703
+sinpkt             257673.0  9.123008e+02  6.922153e+03   0.0      0.008000       0.381696  5.809473e+01  8.437150e+04    8.287950     67.381482
+dinpkt             257673.0  9.891546e+01  1.094049e+03   0.0      0.000000       0.007000  5.643886e+01  5.773924e+04   26.965311    939.566398
+sjit               257673.0  5.419373e+03  4.903450e+04   0.0      0.000000       0.673637  2.787367e+03  1.483831e+06   16.864546    314.488311
+djit               257673.0  5.822515e+02  3.930153e+03   0.0      0.000000       0.000000  1.197129e+02  4.631992e+05   37.496412   2638.487356
+swin               257673.0  1.217537e+02  1.273674e+02   0.0      0.000000       0.000000  2.550000e+02  2.550000e+02    0.090234     -1.991834
+stcpb              257673.0  1.006120e+09  1.367795e+09   0.0      0.000000       0.000000  2.007375e+09  4.294959e+09    1.026446     -0.433876
+dtcpb              257673.0  1.002295e+09  1.363877e+09   0.0      0.000000       0.000000  1.992752e+09  4.294882e+09    1.031027     -0.421070
+dwin               257673.0  1.192546e+02  1.272305e+02   0.0      0.000000       0.000000  2.550000e+02  2.550000e+02    0.129620     -1.983180
+tcprtt             257673.0  4.603810e-02  9.290834e-02   0.0      0.000000       0.000000  8.208200e-02  3.821465e+00    7.434696    158.254187
+synack             257673.0  2.365186e-02  5.385637e-02   0.0      0.000000       0.000000  3.684200e-02  3.226788e+00   12.215821    398.233596
+ackdat             257673.0  2.238624e-02  4.577063e-02   0.0      0.000000       0.000000  4.466500e-02  2.928778e+00    8.073878    204.626324
+smean              257673.0  1.376390e+02  2.059011e+02  24.0     57.000000      73.000000  1.000000e+02  1.504000e+03    3.666593     13.695312
+dmean              257673.0  1.216497e+02  2.540410e+02   0.0      0.000000      44.000000  8.900000e+01  1.500000e+03    2.910109      8.260989
+trans_depth        257673.0  1.022420e-01  7.105928e-01   0.0      0.000000       0.000000  0.000000e+00  1.720000e+02  173.162994  37927.610384
+response_body_len  257673.0  1.968900e+03  4.962523e+04   0.0      0.000000       0.000000  0.000000e+00  6.558056e+06   78.477279   8513.816902
+ct_srv_src         257673.0  9.383176e+00  1.082971e+01   1.0      2.000000       5.000000  1.200000e+01  6.300000e+01    1.637614      1.853475
+ct_state_ttl       257673.0  1.324978e+00  9.922998e-01   0.0      1.000000       1.000000  2.000000e+00  6.000000e+00    1.177031      5.064571
+ct_dst_ltm         257673.0  6.050467e+00  8.173749e+00   1.0      1.000000       2.000000  6.000000e+00  5.900000e+01    2.261506      5.097500
+ct_src_dport_ltm   257673.0  5.238271e+00  8.160822e+00   1.0      1.000000       1.000000  4.000000e+00  5.900000e+01    2.405160      5.680838
+ct_dst_sport_ltm   257673.0  4.032677e+00  5.831515e+00   1.0      1.000000       1.000000  3.000000e+00  4.600000e+01    1.959367      2.950915
+ct_dst_src_ltm     257673.0  8.322964e+00  1.112075e+01   1.0      1.000000       3.000000  8.000000e+00  6.500000e+01    1.762239      2.078385
+ct_ftp_cmd         257673.0  1.284962e-02  1.164211e-01   0.0      0.000000       0.000000  0.000000e+00  4.000000e+00   10.408024    152.191510
+ct_flw_http_mthd   257673.0  1.320045e-01  6.818536e-01   0.0      0.000000       0.000000  0.000000e+00  3.000000e+01   20.653962    695.263696
+ct_src_ltm         257673.0  6.800045e+00  8.396266e+00   1.0      2.000000       3.000000  8.000000e+00  6.000000e+01    2.038831      4.085590
+ct_srv_dst         257673.0  9.121049e+00  1.087475e+01   1.0      2.000000       4.000000  1.100000e+01  6.200000e+01    1.656209      1.874867
+
+Highly skewed numeric columns (|skew| > 5): ['dur', 'spkts', 'dpkts', 'sbytes', 'dbytes', 'sload', 'sloss', 'dloss', 'sinpkt', 'dinpkt', 'sjit', 'djit', 'tcprtt', 'synack', 'ackdat', 'trans_depth', 'response_body_len', 'ct_ftp_cmd', 'ct_flw_http_mthd']
+NOTE: tree-based ensembles (Random Forest, Gradient Boosting) are invariant to monotonic transformations of individual features, so skew alone is not a strong justification for transforming features ahead of ensemble modeling - mention this explicitly in your report's preprocessing justification.
+
+Correlation of undocumented 'rate' column with packet/byte/duration fields:
+dur      -0.118622
+dpkts    -0.093065
+spkts    -0.073668
+dbytes   -0.055538
+sbytes   -0.027353
+Name: rate, dtype: float64
+
+================================================================================
+7. BINARY / FLAG FEATURE ANALYSIS
+================================================================================
+
+--- is_ftp_login ---
+is_ftp_login
+0    254428
+1      3219
+4        16
+2        10
+Name: count, dtype: int64
+  NOTE: is_ftp_login is documented as Binary but contains values outside {0,1}: [np.int64(0), np.int64(1), np.int64(2), np.int64(4)]. Verify this is expected (e.g. ct_ftp_cmd-style counts mislabeled as binary) before treating it as a flag.
+
+--- is_sm_ips_ports ---
+is_sm_ips_ports
+0    253995
+1      3678
+Name: count, dtype: int64
+
+================================================================================
+8. CORRELATION ANALYSIS (numeric features)
+================================================================================
+
+Highly correlated feature pairs (|r| >= 0.9):
+           feature_1         feature_2  correlation
+17      is_ftp_login        ct_ftp_cmd        0.999
+5             dbytes             dloss        0.997
+4             sbytes             sloss        0.996
+3              dpkts             dloss        0.980
+7               swin              dwin        0.980
+11        ct_srv_src        ct_srv_dst        0.979
+2              dpkts            dbytes        0.973
+1              spkts             sloss        0.972
+0              spkts            sbytes        0.964
+12        ct_dst_ltm  ct_src_dport_ltm        0.962
+16    ct_dst_src_ltm        ct_srv_dst        0.960
+10        ct_srv_src    ct_dst_src_ltm        0.954
+8             tcprtt            synack        0.943
+6             sinpkt   is_sm_ips_ports        0.942
+9             tcprtt            ackdat        0.920
+15  ct_src_dport_ltm        ct_src_ltm        0.909
+14  ct_src_dport_ltm  ct_dst_sport_ltm        0.908
+13        ct_dst_ltm        ct_src_ltm        0.902
+
+Top 15 features by |Pearson correlation| with attack_cat (CAVEAT: attack_cat is nominal, not ordinal - this is a rough signal check only, not a rigorous association measure):
+ct_dst_sport_ltm    0.700740
+ct_src_dport_ltm    0.643166
+ct_dst_src_ltm      0.628658
+ct_srv_dst          0.612796
+ct_srv_src          0.607888
+ct_dst_ltm          0.576680
+sttl                0.567637
+ct_src_ltm          0.544582
+swin               -0.469058
+ct_state_ttl        0.460904
+dwin               -0.449111
+rate                0.404860
+stcpb              -0.352406
+dtcpb              -0.351263
+dmean              -0.301663
+Name: attack_cat, dtype: float64
+
+================================================================================
+9. TOP FEATURES vs TARGET (boxplots)
+================================================================================
+Plotting boxplots for (selected via rough correlation signal): ['ct_dst_sport_ltm', 'ct_src_dport_ltm', 'ct_dst_src_ltm', 'ct_srv_dst', 'ct_srv_src', 'ct_dst_ltm']
+
+================================================================================
+10. CLASS IMBALANCE SUMMARY (for stratified split / class-weight decisions)
+================================================================================
+   class  count  pct_of_total  ratio_vs_majority
+0      0  93000        36.092               1.00
+1      9  58871        22.847               1.58
+2      4  44525        17.280               2.09
+3      6  24246         9.410               3.84
+4      3  16353         6.346               5.69
+5      1  13987         5.428               6.65
+6      5   2677         1.039              34.74
+7      2   2329         0.904              39.93
+8      8   1511         0.586              61.55
+9      7    174         0.068             534.48
+
+================================================================================
+EDA COMPLETE
+================================================================================
+Figures written to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\figures
+Tables written to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\tables
+Full log written to: C:\Users\Felix de Bruin\Desktop\Felix de Bruin\2026\Machine Learning\Assignments\Assignment 4\ml741-assignment4\results\eda_summary.txt

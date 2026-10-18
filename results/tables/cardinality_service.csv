@@ -1,0 +1,14 @@
+service,count
+?,141321
+dns,68661
+http,27011
+smtp,6909
+ftp-data,5391
+ftp,4980
+pop3,1528
+ssh,1506
+dhcp,120
+snmp,109
+ssl,86
+irc,30
+radius,21
