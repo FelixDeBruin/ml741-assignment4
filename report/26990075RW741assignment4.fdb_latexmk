@@ -1,7 +1,7 @@
 # Fdb version 4
-["pdflatex"] 1792347766.12673 "c:/Users/Felix de Bruin/Desktop/Felix de Bruin/2026/Machine Learning/Assignments/Assignment 4/ml741-assignment4/report/26990075RW741assignment4.tex" "26990075RW741assignment4.pdf" "26990075RW741assignment4" 1792347768.13556 0
-  "26990075RW741assignment4.aux" 1792347767 11668 54d2283db53f483caecdddf7cceb4a8b "pdflatex"
-  "26990075RW741assignment4.tex" 1792347759 46694 103de069bc5c8aa9d240574f6b3ad1da ""
+["pdflatex"] 1792347976.98273 "c:/Users/Felix de Bruin/Desktop/Felix de Bruin/2026/Machine Learning/Assignments/Assignment 4/ml741-assignment4/report/26990075RW741assignment4.tex" "26990075RW741assignment4.pdf" "26990075RW741assignment4" 1792347979.78627 0
+  "26990075RW741assignment4.aux" 1792347979 11668 54d2283db53f483caecdddf7cceb4a8b "pdflatex"
+  "26990075RW741assignment4.tex" 1792347974 46774 3975b30abd2be22513fcccea9a6a05cb ""
   "C:/Users/Felix de Bruin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1791817760 243685 1c412fccd016b19752b5ce48899ea6ff ""
   "C:/Users/Felix de Bruin/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1772099905 13338241 bc968dedb1e2301dcfce8739fafa5628 ""
   "C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc" 1458473887 4993 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -107,7 +107,7 @@
   "C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/tex/latex/rerunfilecheck/rerunfilecheck.sty" 1751104012 9684 a33a14b82ce60d6e77cb9be689d79ee6 ""
   "C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty" 1761901070 15651 9d7c62df82cb29a555c00550babfe364 ""
   "C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388490452 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
-  "c:/Users/Felix de Bruin/Desktop/Felix de Bruin/2026/Machine Learning/Assignments/Assignment 4/ml741-assignment4/report/26990075RW741assignment4.tex" 1792347759 46694 103de069bc5c8aa9d240574f6b3ad1da ""
+  "c:/Users/Felix de Bruin/Desktop/Felix de Bruin/2026/Machine Learning/Assignments/Assignment 4/ml741-assignment4/report/26990075RW741assignment4.tex" 1792347974 46774 3975b30abd2be22513fcccea9a6a05cb ""
   "figures/report/01_class_distribution.png" 1791637537 74378 0ff3dbd9915231cc788177528c278c15 ""
   "figures/report/02_duplicate_rate_by_class.png" 1791637537 79292 f40a4a3f35be2aeb4183256a25a85a48 ""
   "figures/report/03a_validation_curve_rf_n_estimators.png" 1791637538 68425 f0719cffb46919cfb35a1f5cce584eba ""

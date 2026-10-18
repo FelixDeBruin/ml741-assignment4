@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.2.26)  18 OCT 2026 20:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (MiKTeX 26.2) (preloaded format=pdflatex 2026.2.26)  18 OCT 2026 20:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -440,11 +440,11 @@ Package caption Info: End \AtBeginDocument code.
 Package hyperref Warning: Draft mode on.
 
 Package hyperref Info: Link coloring OFF on input line 13.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 28.
 (C:\Users\Felix de Bruin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 27.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 28.
  (C:\Users\Felix de Bruin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{C:/Users/Felix de Bruin/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}
@@ -454,65 +454,65 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <figures/report/01_class_distribution.png, id=11, 650.43pt x 361.35pt>
 File: figures/report/01_class_distribution.png Graphic file (type png)
 <use figures/report/01_class_distribution.png>
-Package pdftex.def Info: figures/report/01_class_distribution.png  used on input line 89.
+Package pdftex.def Info: figures/report/01_class_distribution.png  used on input line 90.
 (pdftex.def)             Requested size: 252.0pt x 139.99962pt.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 94.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 95.
  (C:\Users\Felix de Bruin\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 ) [2 <./figures/report/01_class_distribution.png>]
 <figures/report/02_duplicate_rate_by_class.png, id=17, 650.43pt x 361.35pt>
 File: figures/report/02_duplicate_rate_by_class.png Graphic file (type png)
 <use figures/report/02_duplicate_rate_by_class.png>
-Package pdftex.def Info: figures/report/02_duplicate_rate_by_class.png  used on input line 120.
+Package pdftex.def Info: figures/report/02_duplicate_rate_by_class.png  used on input line 121.
 (pdftex.def)             Requested size: 252.0pt x 139.99962pt.
  [3 <./figures/report/02_duplicate_rate_by_class.png>] [4]
 <figures/report/03a_validation_curve_rf_n_estimators.png, id=30, 578.16pt x 397.485pt>
 File: figures/report/03a_validation_curve_rf_n_estimators.png Graphic file (type png)
 <use figures/report/03a_validation_curve_rf_n_estimators.png>
-Package pdftex.def Info: figures/report/03a_validation_curve_rf_n_estimators.png  used on input line 205.
+Package pdftex.def Info: figures/report/03a_validation_curve_rf_n_estimators.png  used on input line 206.
 (pdftex.def)             Requested size: 252.0pt x 173.25029pt.
 <figures/report/03b_validation_curve_rf_max_depth.png, id=31, 578.16pt x 397.485pt>
 File: figures/report/03b_validation_curve_rf_max_depth.png Graphic file (type png)
 <use figures/report/03b_validation_curve_rf_max_depth.png>
-Package pdftex.def Info: figures/report/03b_validation_curve_rf_max_depth.png  used on input line 215.
+Package pdftex.def Info: figures/report/03b_validation_curve_rf_max_depth.png  used on input line 216.
 (pdftex.def)             Requested size: 252.0pt x 173.25029pt.
 <figures/report/04a_validation_curve_gbm_learning_rate.png, id=32, 578.16pt x 397.485pt>
 File: figures/report/04a_validation_curve_gbm_learning_rate.png Graphic file (type png)
 <use figures/report/04a_validation_curve_gbm_learning_rate.png>
-Package pdftex.def Info: figures/report/04a_validation_curve_gbm_learning_rate.png  used on input line 225.
+Package pdftex.def Info: figures/report/04a_validation_curve_gbm_learning_rate.png  used on input line 226.
 (pdftex.def)             Requested size: 252.0pt x 173.25029pt.
  [5 <./figures/report/03a_validation_curve_rf_n_estimators.png> <./figures/report/03b_validation_curve_rf_max_depth.png> <./figures/report/04a_validation_curve_gbm_learning_rate.png>]
 <figures/report/10_overall_model_comparison.png, id=39, 650.43pt x 397.485pt>
 File: figures/report/10_overall_model_comparison.png Graphic file (type png)
 <use figures/report/10_overall_model_comparison.png>
-Package pdftex.def Info: figures/report/10_overall_model_comparison.png  used on input line 282.
+Package pdftex.def Info: figures/report/10_overall_model_comparison.png  used on input line 283.
 (pdftex.def)             Requested size: 252.0pt x 153.99957pt.
  [6 <./figures/report/10_overall_model_comparison.png>]
 <figures/report/07_per_class_f1_comparison.png, id=44, 794.97pt x 433.62pt>
 File: figures/report/07_per_class_f1_comparison.png Graphic file (type png)
 <use figures/report/07_per_class_f1_comparison.png>
-Package pdftex.def Info: figures/report/07_per_class_f1_comparison.png  used on input line 296.
+Package pdftex.def Info: figures/report/07_per_class_f1_comparison.png  used on input line 297.
 (pdftex.def)             Requested size: 252.0pt x 137.45116pt.
 <figures/report/08_backdoor_analysis_precision_recall.png, id=45, 794.97pt x 397.485pt>
 File: figures/report/08_backdoor_analysis_precision_recall.png Graphic file (type png)
 <use figures/report/08_backdoor_analysis_precision_recall.png>
-Package pdftex.def Info: figures/report/08_backdoor_analysis_precision_recall.png  used on input line 321.
+Package pdftex.def Info: figures/report/08_backdoor_analysis_precision_recall.png  used on input line 322.
 (pdftex.def)             Requested size: 252.0pt x 125.9969pt.
 <figures/report/06_cv_vs_test_gap.png, id=46, 578.16pt x 397.485pt>
 File: figures/report/06_cv_vs_test_gap.png Graphic file (type png)
 <use figures/report/06_cv_vs_test_gap.png>
-Package pdftex.def Info: figures/report/06_cv_vs_test_gap.png  used on input line 336.
+Package pdftex.def Info: figures/report/06_cv_vs_test_gap.png  used on input line 337.
 (pdftex.def)             Requested size: 252.0pt x 173.25029pt.
  [7 <./figures/report/07_per_class_f1_comparison.png> <./figures/report/08_backdoor_analysis_precision_recall.png>]
 <figures/report/09_feature_importance_comparison.png, id=53, 650.43pt x 505.89pt>
 File: figures/report/09_feature_importance_comparison.png Graphic file (type png)
 <use figures/report/09_feature_importance_comparison.png>
-Package pdftex.def Info: figures/report/09_feature_importance_comparison.png  used on input line 348.
+Package pdftex.def Info: figures/report/09_feature_importance_comparison.png  used on input line 349.
 (pdftex.def)             Requested size: 252.0pt x 195.99947pt.
 <figures/report/11_computational_cost_comparison.png, id=54, 794.97pt x 361.35pt>
 File: figures/report/11_computational_cost_comparison.png Graphic file (type png)
 <use figures/report/11_computational_cost_comparison.png>
-Package pdftex.def Info: figures/report/11_computational_cost_comparison.png  used on input line 359.
+Package pdftex.def Info: figures/report/11_computational_cost_comparison.png  used on input line 360.
 (pdftex.def)             Requested size: 252.0pt x 114.54263pt.
  [8 <./figures/report/06_cv_vs_test_gap.png> <./figures/report/09_feature_importance_comparison.png> <./figures/report/11_computational_cost_comparison.png>]
 
@@ -541,7 +541,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  75i,8n,79p,1845b,468s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmbi8a.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Felix de Bruin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 26990075RW741assignment4.pdf (9 pages, 1015271 bytes).
+Output written on 26990075RW741assignment4.pdf (9 pages, 1015341 bytes).
 PDF statistics:
  111 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
